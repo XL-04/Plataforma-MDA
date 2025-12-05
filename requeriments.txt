@@ -1,0 +1,11 @@
+PyQt5>=5.15
+numpy
+scipy
+pandas
+pydicom
+nibabel
+opencv-python
+matplotlib
+pymongo
+mysql-connector-python
+python-dateutil
