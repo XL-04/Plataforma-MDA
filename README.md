@@ -9,9 +9,6 @@ Aplicativo de escritorio (PyQt5) bajo arquitectura MVC para cargar, procesar y a
 - Tener Qt Designer para crear/editar .ui
 - MongoDB o MySQL (opcional, para registro)
 
-## Estructura del proyecto
-(Ver estructura propuesta en el README del repo.)
-
 ## Primeros pasos
 1. Clonar repo.
 2. Crear `config/users.xml` con usuarios de prueba.
