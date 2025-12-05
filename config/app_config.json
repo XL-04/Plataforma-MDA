@@ -1,0 +1,5 @@
+{
+    "mongo_uri": "mongodb+srv://USUARIO:CONTRASEÑA@CLUSTER.mongodb.net/?retryWrites=true&w=majority",
+    "database": "pmda",
+    "collection": "logs"
+}
