@@ -4,6 +4,10 @@ from src.view.main_view import MainView
 from src.model.model_core import ModelCore
 from src.utils.db import MongoManager
 
+# Vista procesar imagenes
+from src.view.procesar_imagenes_view import ProcesarImagenesView
+
+
 class MainController:
 
     def __init__(self):
@@ -15,6 +19,9 @@ class MainController:
 
         # Main
         self.main_view = None
+
+        # Vista de procesar imagen
+        self.procesar_view = None
 
         # BD
         self.db = MongoManager()
@@ -35,13 +42,14 @@ class MainController:
     def open_main_window(self, username):
         self.main_view = MainView()
 
-        # Conexiones con botones
+        # Conexión de botones
         self.main_view.btn_load_dicom.clicked.connect(self.load_dicom)
         self.main_view.btn_load_png.clicked.connect(self.load_png)
         self.main_view.btn_load_signal.clicked.connect(self.load_signal)
         self.main_view.btn_load_csv.clicked.connect(self.load_csv)
         self.main_view.btn_capture.clicked.connect(self.capture_webcam)
 
+        # Mostrar usuario
         self.main_view.label_user.setText(f"Usuario: {username}")
 
         self.login_view.close()
@@ -60,6 +68,9 @@ class MainController:
             img = self.model.process_png(path)
             self.main_view.show_image(img)
             self.db.log_event(path, "Cargar PNG/JPG")
+
+            # Abrir interfaz procesar imagen
+            self.open_procesar_imagenes(img)
 
     def load_signal(self):
         path = self.main_view.open_file_dialog("Archivo MAT (*.mat)")
@@ -80,3 +91,17 @@ class MainController:
         if img_path:
             QMessageBox.information(None, "OK", f"Imagen guardada en {img_path}")
             self.db.log_event(img_path, "Captura Webcam")
+
+    # Abrir UI de procesar_imagenes
+    def open_procesar_imagenes(self, img):
+        self.procesar_view = ProcesarImagenesView()
+        self.procesar_view.show()
+
+        # Pasar imagen al widget de edición
+        try:
+            self.procesar_view.set_image(img)
+        except:
+            pass
+
+        # Si deseas cerrar la ventana principal
+        # self.main_view.close()

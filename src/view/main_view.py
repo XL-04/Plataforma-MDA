@@ -1,3 +1,4 @@
+import os
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QTableWidgetItem, QPushButton, QLabel, QTableWidget
 from PyQt5.QtGui import QPixmap
@@ -6,7 +7,12 @@ import cv2
 class MainView(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("ui/main_window.ui", self)
+
+        # Ruta real del UI
+        base = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        ui_path = os.path.join(base, "ui", "main_window.ui")
+
+        uic.loadUi(ui_path, self)
 
         # Widgets del UI
         self.btn_load_dicom = self.findChild(QPushButton, "btn_load_dicom")
